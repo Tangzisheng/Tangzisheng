@@ -1,1 +1,130 @@
-hello world
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时钟</title>
+  <script src="./js/utils.js"></script>
+  <link rel="stylesheet" href="./css/clock.css">
+</head>
+
+<body>
+  <div class="clock">
+    <!-- 12个小时的点位 -->
+    <div class="dotH dotH1"><div></div></div>
+    <div class="dotH dotH2"><div></div></div>
+    <div class="dotH dotH3"><div></div></div>
+    <div class="dotH dotH4"><div></div></div>
+    <div class="dotH dotH5"><div></div></div>
+    <div class="dotH dotH6"><div></div></div>
+
+    <!-- 60个分的点 -->
+    <div class="dotM dotM1"><div></div></div>
+    <div class="dotM dotM2"><div></div></div>
+    <div class="dotM dotM3"><div></div></div>
+    <div class="dotM dotM4"><div></div></div>
+    <div class="dotM dotM5"><div></div></div>
+    <div class="dotM dotM6"><div></div></div>
+    <div class="dotM dotM7"><div></div></div>
+    <div class="dotM dotM8"><div></div></div>
+    <div class="dotM dotM9"><div></div></div>
+    <div class="dotM dotM10"><div></div></div>
+    <div class="dotM dotM11"><div></div></div>
+    <div class="dotM dotM12"><div></div></div>
+    <div class="dotM dotM13"><div></div></div>
+    <div class="dotM dotM14"><div></div></div>
+    <div class="dotM dotM15"><div></div></div>
+    <div class="dotM dotM16"><div></div></div>
+    <div class="dotM dotM17"><div></div></div>
+    <div class="dotM dotM18"><div></div></div>
+    <div class="dotM dotM19"><div></div></div>
+    <div class="dotM dotM20"><div></div></div>
+    <div class="dotM dotM21"><div></div></div>
+    <div class="dotM dotM22"><div></div></div>
+    <div class="dotM dotM23"><div></div></div>
+    <div class="dotM dotM24"><div></div></div>
+
+    <!-- 数字 -->
+    <div class="num num1_7">
+      <div>1</div>
+      <div>7</div>
+    </div>
+    <div class="num num2_8">
+      <div>2</div>
+      <div>8</div>
+    </div>
+    <div class="num num3_9">
+      <div>3</div>
+      <div>9</div>
+    </div>
+    <div class="num num4_10">
+      <div>4</div>
+      <div>10</div>
+    </div>
+    <div class="num num5_11">
+      <div>5</div>
+      <div>11</div>
+    </div>
+    <div class="num num6_12">
+      <div>6</div>
+      <div>12</div>
+    </div>
+
+    <!-- 表盘圆心 -->
+    <div class="circle"><div></div></div>
+
+    <!-- 数字年月日 周 -->
+    <div class="num-date" id="numDate"></div>
+    <!-- 数字时间（时:分:秒） -->
+    <div class="num-time">
+      <span id="numHH">17</span>
+      <span id="numMM">45</span>
+      <span id="numSS">27</span>
+    </div>
+
+    <!-- 时针、分针、秒针 -->
+    <div class="line line-h" id="lineH">
+      <div></div>
+    </div>
+    <div class="line line-m" id="lineM">
+      <div></div>
+    </div>
+    <div class="line line-s" id="lineS">
+      <div></div>
+    </div>
+  </div>
+
+  <script>
+    let hDeg = 0;
+    let mDeg = 0;
+    let sDeg = 0;
+    let lineH = document.getElementById('lineH');
+    let lineM = document.getElementById('lineM');
+    let lineS = document.getElementById('lineS');
+    let numDate = document.getElementById('numDate');
+    let numHH = document.getElementById('numHH');
+    let numMM = document.getElementById('numMM');
+    let numSS = document.getElementById('numSS');
+    setInterval(() => {
+      let time = getHms();
+      hDeg = (time.h * 30 + time.m / 60 * 30 + time.s / 60 * 0.008333333333333333) - 90;
+      mDeg = (time.m * 6 + time.s/60 * 6) - 90;
+      sDeg = time.s * 6 - 90;
+      lineH.style.transform = `rotate(${hDeg}deg)`;
+      lineM.style.transform = `rotate(${mDeg}deg)`;
+      lineS.style.transform = `rotate(${sDeg}deg)`;
+      lineH.style.display = 'block';
+      lineM.style.display = 'block';
+      lineS.style.display = 'block';
+
+      numDate.innerText = `${time.year}-${time.month}-${time.date} 星期${time.day}`
+      numHH.innerText = `${time.hh}`;
+      numMM.innerText = `${time.mm}`;
+      numSS.innerText = `${time.ss}`;
+    }, 1000)
+  </script>
+</body>
+
+</html>
